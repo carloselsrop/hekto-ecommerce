@@ -13,6 +13,9 @@ import Faq from '../pages/Faq';
 import AboutUs from '../pages/AboutUs';
 import Register from '../pages/Register';
 import MyAccount from '../pages/MyAccount';
+import Products from '../pages/Products';
+import ProductDetail from '../pages/ProductDetail';
+import Cart from '../pages/Cart';
 
 const App = () => {
   return (
@@ -39,13 +42,21 @@ const App = () => {
         <Route path="/completedOrder">
           <CompletedOrder />
         </Route>
+        <Route path="/products">
+          <Products />
+        </Route>
+        <Route path="/productDetail">
+          <ProductDetail />
+        </Route>
         <Route path="/404">
           <NotFound404 />
+        </Route>
+        <Route path="/cart">
+          <Cart />
         </Route>
         <Route path="/">
           <Home />
         </Route>
-
       </Switch>
     </Router>
   )
