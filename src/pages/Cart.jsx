@@ -2,19 +2,14 @@
 import Navbar from '../components/common/Navbar'
 import emptyCart from '../static/gif/emptyCart.gif'
 import TitlePage from '../components/common/TitlePage'
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom'
 import { CartContext } from '../context/cartContext';
 
 const Cart = () => {
   // Context and State
   const { cart, handleDelete, addToCart, minusQuantity } = useContext(CartContext);
-  const [counter, setCounter] = useState(0)
 
-  // Methods
-  const handleCounter = ({ target: { value } }) => {
-    setCounter(value)
-  }
 
   const totalPrice = cart.reduce((acc, item) => {
     return acc + item.price * item.quantity
@@ -62,7 +57,7 @@ const Cart = () => {
                     <button onClick={() => { minusQuantity(item) }} className="px-1 text-lg bg-hekto-sky-blue">
                       -
                     </button>
-                    <input onChange={handleCounter} value={item.quantity} className="w-full text-center border" />
+                    <input value={item.quantity} className="w-full text-center border" />
                     <button onClick={() => { addToCart(item) }} className="px-1 text-lg bg-hekto-sky-blue">
                       +
                     </button>

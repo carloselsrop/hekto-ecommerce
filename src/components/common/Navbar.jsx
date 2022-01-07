@@ -24,6 +24,7 @@ const Navbar = () => {
     if (cart) {
       setCart(JSON.parse(cart));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Data

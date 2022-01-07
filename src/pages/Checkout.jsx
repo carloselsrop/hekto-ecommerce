@@ -8,7 +8,7 @@ const Checkout = () => {
   // Context and State
   const history = useHistory();
   const { cart } = useContext(CartContext);
-  const [paymentMethod, setPaymentMethod] = useState([
+  const [paymentMethod] = useState([
     {
       id: 1,
       name: 'Paypal',
@@ -139,18 +139,22 @@ const Checkout = () => {
                 </div>
               </div>
               {/* Directions */}
-              <div className='p-4'>
-                <div className='text-lg font-bold text-hekto-navy-blue font-body pb-4'>Metodo de pago</div>
-                <div>
-                  <div>
-                    <div>
-                      No tienes direcciones agregadas</div>
-                    <div>Agrega una dirección de envío</div>
-                  </div>
-                  <div>
-                    <button></button>
-                  </div>
+              <div className='px-4 py-6 flex items-center space-x-4'>
+                <div className='w-4/12 text-lg font-bold text-hekto-navy-blue font-body'>Metodo de pago</div>
+                <div className='w-6/12 font-semibold font-body text-black'>
+                  <div>No tienes direcciones agregadas,</div>
+                  <div>Agrega una dirección de envío</div>
                 </div>
+                <div className='w-2/12'>
+                  <button className='flex space-x-2 bg-hekto-off-navy-blue text-white font-bold font-body px-2 rounded-md py-1'>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                      <path fillRule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clipRule="evenodd" />
+                    </svg>
+                    <span>Editar</span>
+                  </button>
+                </div>
+
               </div>
             </div>
             <div>

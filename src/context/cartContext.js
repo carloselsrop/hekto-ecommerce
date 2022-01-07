@@ -5,7 +5,7 @@ const CartContext = createContext();
 
 const CartContextProvider = ({ children }) => {
   const history = useHistory();
-  const [featuredProducts, setFeaturedProducts] = useState([
+  const [featuredProducts] = useState([
     {
       id: 1,
       name: 'Xbox Series X',
