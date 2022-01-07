@@ -1,9 +1,9 @@
-// Components
+// Components:
 import Footer from '../components/common/Footer';
 import Navbar from '../components/common/Navbar';
 import TitlePage from '../components/common/TitlePage';
 
-// Static
+// Static:
 import aboutImg from '../static/img/aboutImg.png';
 import freedeliveryImg from '../static/img/freedeliveryImg.png';
 import hoursImg from '../static/img/24hoursImg.png';

@@ -5,12 +5,16 @@ import Brands from '../components/common/Brands'
 import Footer from '../components/common/Footer'
 import checkGif from '../static/gif/checkGif.gif'
 import errorGif from '../static/gif/errorGif.gif'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { AuthContext } from '../context/authContext'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+
 
 // Component
 const Register = () => {
+  // Context and State
+  const { registerUser } = useContext(AuthContext);
+
   // Data
   const [successModal, setSuccessModal] = useState(false)
   const [errorModal, setErrorModal] = useState(false)
@@ -21,9 +25,6 @@ const Register = () => {
     password_confirmation: '',
   })
 
-  // API
-  const API = 'https://eshop-carlos.herokuapp.com/api'
-
   // Methods
   const handleChange = ({ target: { value, name } }) => {
     setForm({
@@ -31,24 +32,13 @@ const Register = () => {
       [name]: value,
     })
   }
+
   const handleRegister = () => {
-    try {
-      axios.defaults.withCredentials = true
-      axios.get(`https://eshop-carlos.herokuapp.com/sanctum/csrf-cookie`).then(async () => {
-        const response = await axios.post(`${API}/register`,
-          {
-            name: form.name,
-            email: form.email,
-            password: form.password
-          }
-        )
-        if (response.status === 201) {
-          setSuccessModal(true)
-        }
-      })
-    } catch (error) {
+    if ((form.password !== form.password_confirmation) || (form.password === '') || (form.password_confirmation === '') || (form.name === '') || (form.email === '')) {
       setErrorModal(true)
+      return
     }
+    registerUser(form)
   }
 
   // Renders

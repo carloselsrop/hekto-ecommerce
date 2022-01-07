@@ -1,15 +1,26 @@
 // Imports
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import TitlePage from '../components/common/TitlePage';
 import Brands from '../components/common/Brands';
 import Navbar from '../components/common/Navbar';
+import { AuthContext } from '../context/authContext';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
-  // Methods
+  // Context and State
+  const { loginUser } = useContext(AuthContext);
   const [form, setForm] = useState({
     email: '',
     password: ''
   });
+
+  // Methods
+  const handleLogin = () => {
+    if (form.email !== '' && form.password !== '') {
+      loginUser(form)
+    }
+  }
+
   const handleChange = ({ target: { value, name } }) => {
     setForm({
       ...form,
@@ -33,8 +44,8 @@ const Login = () => {
           <div className="w-full flex">
             <button className="text-xs text-gray-400 hover:text-black transition duration-300 pb-4">Forgot password?</button>
           </div>
-          <button className=" bg-hekto-pink w-full py-2 rounded-sm text-white text-sm mb-4">Sign In</button>
-          <div className="text-xs text-gray-400">Don’t have an Account? <button className="border-b text-hekto-off-navy-blue border-hekto-off-navy-blue"> Create account</button></div>
+          <button onClick={handleLogin} className=" bg-hekto-pink w-full py-2 rounded-sm text-white text-sm mb-4">Sign In</button>
+          <div className="text-xs text-gray-400">Don’t have an Account? <Link to="/register" className="border-b text-hekto-off-navy-blue border-hekto-off-navy-blue"> Create account</Link></div>
         </div>
       </div>
       <Brands />
