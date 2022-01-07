@@ -2,10 +2,12 @@ import Navbar from '../components/common/Navbar'
 import TitlePage from '../components/common/TitlePage'
 import { useContext, useState } from 'react';
 import { CartContext } from '../context/cartContext';
+import { useHistory } from 'react-router-dom';
 
 const Checkout = () => {
   // Context and State
-  const { cart, handleEmptyCart } = useContext(CartContext);
+  const history = useHistory();
+  const { cart } = useContext(CartContext);
   const [paymentMethod, setPaymentMethod] = useState([
     {
       id: 1,
@@ -42,9 +44,17 @@ const Checkout = () => {
   const toggleAddressButton = () => {
     setToggleAddress(!toggleAddress);
   }
-
-  console.log(toggleAddress);
-
+  const totalPrice = cart.reduce((acc, item) => {
+    return acc + item.price * item.quantity;
+  }, 0);
+  const handleSubmit = () => {
+    if (selectedPaymentMethod.value === '') {
+      alert('Please select a payment method');
+    } else {
+      localStorage.setItem('cart', JSON.stringify([]));
+      history.push('/');
+    }
+  }
 
   return (
     <div>
@@ -52,7 +62,7 @@ const Checkout = () => {
       <TitlePage title="Checkout" />
       <div className='w-full flex flex-col items-center'>
         {/* Resume of the Page */}
-        <div className='w-8/12 flex flex-col'>
+        <div className='w-8/12 flex flex-col select-none'>
           <div className='w-8/12 pr-4 py-4'>
             <div className=' text-hekto-off-navy-blue font-bold font-body pb-2'>
               ¿Cómo deseas recibir tus productos?
@@ -68,10 +78,10 @@ const Checkout = () => {
             </div>
           </div>
         </div>
-        {/* Big DIV */}
+        {/* Container */}
         <div className='w-8/12 flex space-x-4 justify-between items-start mt-2'>
           {/* Left Container */}
-          <div className='rounded-md flex flex-col w-8/12 '>
+          <div className='rounded-md flex flex-col w-8/12 select-none'>
             <div className='bg-hekto-sky-blue  rounded-md border border-gray-300 shadow-sm divide-y divide-gray-300 mb-16'>
               {/* Payment Methods */}
               <div className='p-4'>
@@ -155,10 +165,10 @@ const Checkout = () => {
                   <div className='flex justify-between p-4'>
                     <div className='flex space-x-2 items-start'>
                       <img className='w-32' src={item.img} alt="" />
-                      <div className='flex flex-col items-start space-y-1'>
+                      <div className='flex flex-col items-start space-y-2'>
                         <div className='font-bold text-opacity-80 text-black'>{item.name}</div>
                         <div>{item.quantity > 0 ? <div className='text-sm text-white font-bold rounded-2xl px-2 py-1 bg-green-600'>En stock</div> : null}</div>
-                        <div>Cantidad: {item.quantity}</div>
+                        <div className='text-sm font-semibold font-body'>Cantidad: {item.quantity}</div>
                       </div>
                     </div>
                     <div className='font-bold text-black'>${item.price}</div>
@@ -168,8 +178,47 @@ const Checkout = () => {
             </div>
           </div>
           {/* Right Container */}
-          <div className='rounded-md bg-hekto-sky-blue w-4/12 p-4'>
-            <div> Confirmar CheckOut</div>
+          <div className='rounded-md bg-hekto-sky-blue w-4/12 p-4 select-none border border-gray-300 shadow-sm'>
+            {/* Confirm and Pay Button */}
+            <button onClick={handleSubmit} disabled={selectedPaymentMethod.value === ''} className={`w-full bg-hekto-off-navy-blue rounded-md transition duration-300 text-white space-x-2 flex items-center justify-center py-3 ${selectedPaymentMethod.value === '' ? 'bg-opacity-50 cursor-not-allowed' : ''}`}>
+              {selectedPaymentMethod.value === ''
+                ?
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                </svg>
+                :
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z" />
+                </svg>}
+              <div className='font-semibold text-sm'>
+                Confirmar y pagar
+              </div>
+            </button>
+            {/* Alert payment Method selected */}
+            <div className='flex flex-col items-center justify-center pt-4 pb-4 border-b border-gray-300'>
+              {selectedPaymentMethod.value === '' && <span className='text-red-500 font-body text-md font-semibold'>Seleccione un metodó de pago</span>}
+              <div className='text-xs text-gray-400'>Es importante que brindes los datos exactos</div>
+            </div>
+            {/* Resume of the products */}
+            <div className='flex flex-col py-4 font-body border-b border-gray-300'>
+              <div className='font-bold text-hekto-off-navy-blue '>Resumen de la orden</div>
+              <div className='text-xs text-gray-400'>*El precio total incluye todos los impuestos</div>
+              <div>
+                <div className='flex justify-between pt-4 font-regular text-sm items-center'>
+                  <div>Items: ({cart.length})</div>
+                  <div>${totalPrice.toFixed(2)}</div>
+                </div>
+                <div className='flex justify-between pt-4 font-regular text-sm items-center'>
+                  <div>Costo por envio:</div>
+                  <div>$0.00</div>
+                </div>
+              </div>
+            </div>
+            {/* Total Price of the Order */}
+            <div className='flex justify-between items-center py-4'>
+              <div className='font-bold font-body text-lg text-hekto-off-navy-blue'>Total de la orden</div>
+              <div className=' text-hekto-navy-blue font-body font-bold text-xl'>${totalPrice.toFixed(2)}</div>
+            </div>
           </div>
         </div>
       </div>
