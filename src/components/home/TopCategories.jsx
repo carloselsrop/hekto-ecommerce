@@ -8,25 +8,28 @@ const TopCategories = () => {
   ];
 
   return (
-    <div className="flex flex-col mb-16 relative z-40">
-      <div className="text-center text-3xl text-hekto-navy-blue font-bold pb-10">
-        Top Categories
-      </div>
-      <div className="mb-4 font-body">
-        <div className=" w-full grid grid-flow-row transition duration-300 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 grid-cols-1">
-          {/* Product Item */}
-          {topCategories.map(product => {
-            return (
-              <div key={product.id} className="relative w-56 h-56 ">
-                <div className="bg-hekto-purple z-0 h-full rounded-full absolute w-full"></div>
-                <div className="bg-white z-50 scale-105 p-8 rounded-full h-full absolute border-2 cursor-pointer border-hekto-purple group hover:translate-x-2 hover:-translate-y-2 transform text-transparent w-full transition duration-300">
-                  <div className="flex justify-center items-center h-full w-full">
-                    <img className="h-32 pb-4 mb-4" src={product.img} alt="" />
+    <div className="w-full flex justify-center font-body select-none">
+      <div className="w-10/12 sm:w-8/12 flex flex-col py-4">
+        <div className="flex flex-col mb-16 relative z-40">
+          <div className="text-center text-3xl text-hekto-navy-blue font-bold pb-10">
+            Top Categories
+          </div>
+          <div className='flex w-full justify-center'>
+            <div className=" w-11/12 grid grid-flow-row transition duration-300 bg-green-500 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 grid-cols-1">
+              {/* Product Item */}
+              {topCategories.map(product => {
+                return (
+                  <div key={product.id} className="relative w-56 h-56 ">
+                    <div className="bg-white z-50 scale-105 p-8 rounded-full h-full absolute border-2 cursor-pointer border-hekto-purple group hover:translate-x-2 hover:-translate-y-2 transform text-transparent w-full transition duration-300">
+                      <div className="flex justify-center items-center h-full w-full">
+                        <img className="h-32 pb-4 " src={product.img} alt="" />
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            )
-          })}
+                )
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </div>

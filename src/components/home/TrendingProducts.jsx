@@ -8,33 +8,37 @@ const TrendingProducts = () => {
   ];
 
   return (
-    <div className="flex flex-col mb-16">
-      <div className="text-center text-3xl text-hekto-navy-blue font-bold pb-6">
-        Trending Products
-      </div>
-      <div className="mb-4 font-body">
-        <div className=" w-full grid grid-flow-row transition duration-300 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 grid-cols-1">
-          {/* Product Item */}
-          {trendingProducts.map(product => {
-            return (
-              <div key={product.id} className="flex flex-col group items-center justify-center shadow-lg rounded-md">
-                <div className="bg-white pt-6 w-full flex flex-col items-center rounded-t-md group-hover:bg-blue-50 transition duration-300  text-transparent">
-                  <img className="w-11/12 h-52 rounded-md bg-gray-100" src={product.img} alt="" />
-                </div>
-                <div className="w-full py-6 group-hover:bg-blue-50 space-y-2 rounded-b-md transition duration-300 flex flex-col items-center">
-                  <div className=" text-lg font-extrabold text-hekto-off-navy-blue">{product.name}</div>
-                  <div className="flex space-x-4 items-center">
-                    <div className=" text-sm text-hekto-pink">
-                      ${product.price.toFixed(2)}
+    <div className="w-full flex justify-center font-body select-none">
+      <div className="w-10/12 sm:w-8/12 flex flex-col py-4">
+        <div className="flex flex-col mb-16">
+          <div className="text-center text-3xl text-hekto-navy-blue font-bold pb-6">
+            Trending Products
+          </div>
+          <div className="mb-4 font-body">
+            <div className=" w-full grid grid-flow-row transition duration-300 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 grid-cols-1">
+              {/* Product Item */}
+              {trendingProducts.map(product => {
+                return (
+                  <div key={product.id} className="flex flex-col group items-center justify-center shadow-lg rounded-md">
+                    <div className="bg-white pt-6 w-full flex flex-col items-center rounded-t-md group-hover:bg-blue-50 transition duration-300  text-transparent">
+                      <img className="w-11/12 h-52 rounded-md bg-gray-100" src={product.img} alt="" />
                     </div>
-                    <div className=" text-xs text-hekto-off-navy-blue line-through">
-                      ${product.price.toFixed(2)}
+                    <div className="w-full py-6 group-hover:bg-blue-50 space-y-2 rounded-b-md transition duration-300 flex flex-col items-center">
+                      <div className=" text-lg font-extrabold text-hekto-off-navy-blue">{product.name}</div>
+                      <div className="flex space-x-4 items-center">
+                        <div className=" text-sm text-hekto-pink">
+                          ${product.price.toFixed(2)}
+                        </div>
+                        <div className=" text-xs text-hekto-off-navy-blue line-through">
+                          ${product.price.toFixed(2)}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            )
-          })}
+                )
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </div>

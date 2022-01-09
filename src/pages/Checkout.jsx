@@ -52,7 +52,7 @@ const Checkout = () => {
       alert('Please select a payment method');
     } else {
       localStorage.setItem('cart', JSON.stringify([]));
-      history.push('/');
+      history.push('/completedOrder');
     }
   }
 
@@ -62,8 +62,8 @@ const Checkout = () => {
       <TitlePage title="Checkout" />
       <div className='w-full flex flex-col items-center'>
         {/* Resume of the Page */}
-        <div className='w-8/12 flex flex-col select-none'>
-          <div className='w-8/12 pr-4 py-4'>
+        <div className='w-10/12 sm:w-8/12 flex flex-col select-none'>
+          <div className='w-full sm:w-8/12 pr-4 py-4'>
             <div className=' text-hekto-off-navy-blue font-bold font-body pb-2'>
               ¿Cómo deseas recibir tus productos?
             </div>
@@ -73,21 +73,21 @@ const Checkout = () => {
             <div className='flex justify-end space-x-3 text-gray-500 font-body text-sm items-center'>
               <span>Recoger en tienda</span>
               <button onClick={toggleAddressButton} className={`w-12 rounded-2xl h-6 border border-gray-300 transition duration-300 flex items-center ${toggleAddress ? 'bg-blue-600' : ' bg-gray-300'}`}>
-                <button className={`transform transition duration-300 w-6 h-6 bg-white border border-gray-400 shadow-md rounded-full ${toggleAddress ? 'translate-x-full' : ' translate-x-0'}`}></button>
+                <div className={`transform transition duration-300 w-6 h-6 bg-white border border-gray-400 shadow-md rounded-full ${toggleAddress ? 'translate-x-full' : ' translate-x-0'}`} />
               </button>
             </div>
           </div>
         </div>
         {/* Container */}
-        <div className='w-8/12 flex space-x-4 justify-between items-start mt-2'>
+        <div className='w-10/12 sm:w-8/12 lg:flex-row lg:space-x-4 flex flex-col justify-between items-start mt-2'>
           {/* Left Container */}
-          <div className='rounded-md flex flex-col w-8/12 select-none'>
+          <div className='rounded-md flex flex-col w-full lg:w-8/12 select-none'>
             <div className='bg-hekto-sky-blue  rounded-md border border-gray-300 shadow-sm divide-y divide-gray-300 mb-16'>
               {/* Payment Methods */}
               <div className='p-4'>
                 <div className='text-lg font-bold text-hekto-navy-blue font-body pb-4'>Metodo de pago</div>
-                <div className='w-full flex space-x-4'>
-                  <div className='w-4/12'>
+                <div className='w-full lg:flex-row lg:space-x-4 flex flex-col space-y-4'>
+                  <div className='w-full lg:w-4/12'>
                     <div className='pb-2 font-body text-base'>
                       Selecciona el metodo que deseas utilizar
                     </div>
@@ -123,11 +123,11 @@ const Checkout = () => {
                       })}
                     </div>
                   </div>
-                  <div className='w-6/12'>
+                  <div className='w-full lg:w-6/12'>
                     <div className='font-bold font-body pb-2'>No tienes métodos de pago</div>
                     <div className=' text-gray-400 font-body text-sm'>Agrega los datos de tu tarjeta de débito o crédito dando click en la opción editar.</div>
                   </div>
-                  <div className='w-2/12'>
+                  <div className='w-full lg:w-2/12'>
                     <button className='flex space-x-2 bg-hekto-off-navy-blue text-white font-bold font-body px-2 rounded-md py-1'>
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
@@ -139,13 +139,13 @@ const Checkout = () => {
                 </div>
               </div>
               {/* Directions */}
-              <div className='px-4 py-6 flex items-center space-x-4'>
-                <div className='w-4/12 text-lg font-bold text-hekto-navy-blue font-body'>Metodo de pago</div>
-                <div className='w-6/12 font-semibold font-body text-black'>
+              <div className='px-4 py-6 lg:flex-row lg:space-x-4 lg:items-center flex flex-col  space-y-4'>
+                <div className='w-full lg:w-4/12 text-lg font-bold text-hekto-navy-blue font-body'>Metodo de pago</div>
+                <div className='w-full lg:w-6/12 font-semibold font-body text-black'>
                   <div>No tienes direcciones agregadas,</div>
                   <div>Agrega una dirección de envío</div>
                 </div>
-                <div className='w-2/12'>
+                <div className='w-full lg:w-2/12'>
                   <button className='flex space-x-2 bg-hekto-off-navy-blue text-white font-bold font-body px-2 rounded-md py-1'>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
@@ -166,7 +166,7 @@ const Checkout = () => {
               {/* Products on the Cart */}
               {cart.map(item => {
                 return (
-                  <div className='flex justify-between p-4'>
+                  <div key={item.id} className='flex justify-between p-4'>
                     <div className='flex space-x-2 items-start'>
                       <img className='w-32' src={item.img} alt="" />
                       <div className='flex flex-col items-start space-y-2'>
@@ -182,7 +182,7 @@ const Checkout = () => {
             </div>
           </div>
           {/* Right Container */}
-          <div className='rounded-md bg-hekto-sky-blue w-4/12 p-4 select-none border border-gray-300 shadow-sm'>
+          <div className='rounded-md bg-hekto-sky-blue w-full lg:w-4/12 p-4 select-none border border-gray-300 shadow-sm mb-8 lg:mb-0'>
             {/* Confirm and Pay Button */}
             <button onClick={handleSubmit} disabled={selectedPaymentMethod.value === ''} className={`w-full bg-hekto-off-navy-blue rounded-md transition duration-300 text-white space-x-2 flex items-center justify-center py-3 ${selectedPaymentMethod.value === '' ? 'bg-opacity-50 cursor-not-allowed' : ''}`}>
               {selectedPaymentMethod.value === ''

@@ -4,7 +4,6 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-
 import Login from '../pages/Login'
 import Home from '../pages/Home'
 import CompletedOrder from '../pages/CompletedOrder';
@@ -66,7 +65,9 @@ const App = () => {
               <ContactUs />
             </Route>
             <Route path="/completedOrder">
-              <CompletedOrder />
+              <CheckAuth isPrivate={true}>
+                <CompletedOrder />
+              </CheckAuth>
             </Route>
             <Route path="/products">
               <Products />
@@ -78,7 +79,9 @@ const App = () => {
               <Cart />
             </Route>
             <Route path="/checkout">
-              <Checkout />
+              <CheckAuth isPrivate={true}>
+                <Checkout />
+              </CheckAuth>
             </Route>
             <Route exact path="/">
               <Home />
@@ -92,5 +95,4 @@ const App = () => {
     </Router>
   )
 }
-
 export default App;

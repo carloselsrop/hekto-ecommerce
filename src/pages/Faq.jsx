@@ -2,8 +2,17 @@ import Brands from '../components/common/Brands'
 import Footer from '../components/common/Footer'
 import Navbar from '../components/common/Navbar'
 import TitlePage from '../components/common/TitlePage'
+import { useState } from 'react'
 
 const Faq = () => {
+  const [faq] = useState([
+    {
+      question: 'What is the difference between a brand and a brand name?',
+      answer:
+        'A brand is a company that has a product or service that is marketed to a specific demographic. A brand name is a name that is used to identify a brand. A brand name is not necessarily synonymous with a brand.'
+    }
+  ])
+
   return (
     <div>
       <Navbar />
@@ -17,22 +26,14 @@ const Faq = () => {
             </div>
             {/* Questions */}
             <div className="space-y-8 flex flex-col items-center text-center sm:text-left">
-              <div>
-                <div className="text-sm pb-2 text-hekto-navy-blue font-bold">Lorem as as dasdh absdabsdjbajsdb?</div>
-                <div className="text-sm text-gray-400"> asmdn asndkansdkjna kjsndkj naks dnkajjs nkjans knasdk nakjsdsd kan dkjansk naksd naks ndkjan kjnakjsdn jkasn kjansj najksn j.</div>
-              </div>
-              <div>
-                <div className="text-sm pb-2 text-hekto-navy-blue font-bold">Lorem as as dasdh absdabsdjbajsdb?</div>
-                <div className="text-sm text-gray-400"> asmdn asndkansdkjna kjsndkj naks dnkajjs nkjans knasdk nakjsdsd kan dkjansk naksd naks ndkjan kjnakjsdn jkasn kjansj najksn j.</div>
-              </div>
-              <div>
-                <div className="text-sm pb-2 text-hekto-navy-blue font-bold">Lorem as as dasdh absdabsdjbajsdb?</div>
-                <div className="text-sm text-gray-400"> asmdn asndkansdkjna kjsndkj naks dnkajjs nkjans knasdk nakjsdsd kan dkjansk naksd naks ndkjan kjnakjsdn jkasn kjansj najksn j.</div>
-              </div>
-              <div>
-                <div className="text-sm pb-2 text-hekto-navy-blue font-bold">Lorem as as dasdh absdabsdjbajsdb?</div>
-                <div className="text-sm text-gray-400"> asmdn asndkansdkjna kjsndkj naks dnkajjs nkjans knasdk nakjsdsd kan dkjansk naksd naks ndkjan kjnakjsdn jkasn kjansj najksn j.</div>
-              </div>
+              {faq.map(faq => {
+                return (
+                  <div key={faq.question}>
+                    <div className="text-sm pb-2 text-hekto-navy-blue font-bold">{faq.question}</div>
+                    <div className="text-sm text-gray-400">{faq.answer}</div>
+                  </div>
+                )
+              })}
             </div>
           </div>
           {/* Question Box */}
@@ -60,4 +61,5 @@ const Faq = () => {
     </div>
   )
 }
+
 export default Faq

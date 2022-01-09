@@ -15,16 +15,22 @@ const Cart = () => {
     return acc + item.price * item.quantity
   }, 0)
 
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    addToCart(name, value)
+  }
+
+
   // Template
   return (
     <div>
       <Navbar />
       <TitlePage title="Shopping Cart" />
       <div className="w-full flex justify-center py-16 select-none font-body">
-        <div className="w-10/12 sm:w-8/12 flex flex-col items-start sm:flex-row">
+        <div className="w-10/12 lg:space-x-4 xl:space-x-0 md:w-8/12 flex flex-col items-start lg:flex-row space-y-8 lg:space-y-0">
           {/* Left Div */}
-          {cart.length > 0 ? <div className="w-8/12">
-            <div className="flex font-bold w-10/12 text-sm text-hekto-navy-blue mb-4">
+          {cart.length > 0 ? <div className="w-full lg:w-8/12">
+            <div className="flex font-bold w-full space-x-2 text-sm text-hekto-navy-blue mb-4">
               <div className="w-6/12">
                 Product
               </div>
@@ -34,7 +40,7 @@ const Cart = () => {
             </div>
             {/* Cart Products */}
             {cart.map(item => (
-              <div className="flex items-center py-4 w-10/12">
+              <div key={item.id} className="flex items-center py-4 w-full">
                 <div className="w-6/12 flex space-x-2 items-center">
                   <div className="relative">
                     <img className='w-24 rounded border-2' src={item.img} alt="" />
@@ -50,20 +56,20 @@ const Cart = () => {
                   </div>
                 </div>
                 <div className="w-2/12 text-sm">
-                  ${item.price}
+                  ${item.price.toFixed(2)}
                 </div>
                 <div className="w-2/12 text-sm flex justify-start">
-                  <div className="w-6/12 bg-red-500 flex">
-                    <button onClick={() => { minusQuantity(item) }} className="px-1 text-lg bg-hekto-sky-blue">
+                  <div className="w-6/12 flex">
+                    <button disabled={item.quantity === 1} onClick={() => { minusQuantity(item) }} className={`px-1 text-lg bg-hekto-sky-blue text-black ${item.quantity === 1 ? 'bg-opacity-80 cursor-not-allowed text-opacity-10' : ''}`}>
                       -
                     </button>
-                    <input value={item.quantity} className="w-full text-center border" />
-                    <button onClick={() => { addToCart(item) }} className="px-1 text-lg bg-hekto-sky-blue">
+                    <input value={item.quantity} onChange={onChange} className="w-full text-center border" />
+                    <button disabled={item.quantity === 5} onClick={() => { addToCart(item) }} className={`px-1 text-lg bg-hekto-sky-blue text-black ${item.quantity === 5 ? 'bg-opacity-80 cursor-not-allowed text-opacity-10' : ''}`}>
                       +
                     </button>
                   </div>
                 </div>
-                <div className="w-2/12 text-sm">${item.price * item.quantity}</div>
+                <div className="w-2/12 text-sm">${(item.price * item.quantity).toFixed(2)}</div>
               </div>
             ))}
           </div>
@@ -78,7 +84,7 @@ const Cart = () => {
             </div>
           }
           {/* Right Div */}
-          <div className="bg-gray-200 rounded-lg w-4/12 p-4">
+          <div className="bg-gray-200 lg:w-4/12 rounded-lg w-full md:w-full p-4">
             <div className='pb-4 flex'>
               <Link to="/checkout" disabled={cart.length < 1} className={` w-full text-center text-gray-100 bg-hekto-off-navy-blue py-2 rounded-md ${cart.length ? ' bg-hekto-navy-blue text-opacity-100' : ' bg-hekto-off-navy-blue  text-opacity-20 cursor-not-allowed'}`}>
                 Confirmar Pedido
@@ -90,14 +96,14 @@ const Cart = () => {
                 <div>Items en el carrito: ({cart.length})</div>
                 <div className='w-full flex justify-between'>
                   <div>Total a pagar: </div>
-                  <div>${totalPrice}</div>
+                  <div>${totalPrice.toFixed(2)}</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

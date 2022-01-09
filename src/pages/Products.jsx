@@ -7,13 +7,11 @@ import productRow from '../static/img/productRow.png'
 import { useState } from 'react'
 
 const Products = () => {
-
   const [productView, setProductView] = useState(false)
 
   const gridProducts = () => {
     setProductView(false)
   }
-
   const rowProducts = () => {
     setProductView(true)
   }
@@ -31,11 +29,7 @@ const Products = () => {
               <div className="text-xs text-hekto-off-navy-blue text-opacity-50">About 9620 results (0.62 seconds)</div>
             </div>
             <div className="flex space-x-8 text-sm">
-              <div className="flex items-center">
-                <div className="pr-1">Per Page:</div>
-                <input className="w-12 py-1 border rounded-sm focus:outline-none px-2" type="number" />
-              </div>
-              <div className="flex items-center">
+              {/* <div className="flex items-center">
                 <div className="pr-1">Sort By: </div>
                 <select className="w-24 py-2 text-xs border rounded-sm focus:outline-none px-1" name="" id="">
                   <option value="">Relevance</option>
@@ -44,7 +38,7 @@ const Products = () => {
                   <option value="">Newest</option>
                   <option value="">Best Seller</option>
                 </select>
-              </div>
+              </div> */}
               <div className="flex items-center">
                 <div className="pr-2">View:</div>
                 <div className="flex items-center space-x-2">
@@ -68,20 +62,22 @@ const Products = () => {
             ?
             <div className="mb-4 font-body space-y-4">
               {/* Product Row */}
-              <div className="bg-white hover:bg-gray-100 px-2 py-2 flex items-center transition duration-300 rounded-md">
+              <div className="bg-white flex-col lg:flex-row space-y-4 group hover:bg-gray-100 px-2 py-2 flex items-center transition duration-300 rounded-md">
                 {/* Img Product */}
                 <div className="mr-4 select-none">
                   <img src={productRow} alt="" />
                 </div>
                 {/* Info Product */}
-                <div className="w-7/12 space-y-3 select-none relative text-transparent group">
-                  <div className="text-sm font-bold text-hekto-blue">Accusamm Tincident</div>
-                  <div className="text-xs flex space-x-4">
-                    <div className="text-hekto-off-navy-blue font-bold">$26.00</div>
-                    <div className=" line-through text-hekto-pink ">$52.00</div>
+                <div className="lg:w-7/12 w-full px-3 lg:px-4 select-none relative text-transparent group flex flex-col">
+                  <div>
+                    <div className="text-sm font-bold text-hekto-blue">Accusamm Tincident</div>
+                    <div className="text-xs flex space-x-4">
+                      <div className="text-hekto-off-navy-blue font-bold">$26.00</div>
+                      <div className=" line-through text-hekto-pink ">$52.00</div>
+                    </div>
+                    <div className="text-xs text-gray-400 pb-5 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. At vero commodi, voluptatum dignissimos vel, ut autem id ex aliquam eos tempore debitis deleniti veniam blanditiis perferendis temporibus, nihil asperiores exercitationem!</div>
                   </div>
-                  <div className="text-xs text-gray-400 pb-10">Lorem ipsum dolor sit amet consectetur adipisicing elit. At vero commodi, voluptatum dignissimos vel, ut autem id ex aliquam eos tempore debitis deleniti veniam blanditiis perferendis temporibus, nihil asperiores exercitationem!</div>
-                  <div className="absolute left-2 bottom-0 flex space-x-3">
+                  <div className="flex justify-start space-x-3 ">
                     <button className="bg-transparent hover:bg-white flex justify-center items-center rounded-full py-1 px-1 hover:-translate-y-1 transform group-hover:text-black transition duration-300">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.4} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -96,20 +92,22 @@ const Products = () => {
                 </div>
               </div>
               {/* Product Row */}
-              <div className="bg-white hover:bg-gray-100 px-2 py-2 flex items-center transition duration-300 rounded-md">
+              <div className="bg-white flex-col lg:flex-row space-y-4 group hover:bg-gray-100 px-2 py-2 flex items-center transition duration-300 rounded-md">
                 {/* Img Product */}
                 <div className="mr-4 select-none">
                   <img src={productRow} alt="" />
                 </div>
                 {/* Info Product */}
-                <div className="w-7/12 space-y-3 select-none relative text-transparent group">
-                  <div className="text-sm font-bold text-hekto-blue">Accusamm Tincident</div>
-                  <div className="text-xs flex space-x-4">
-                    <div className="text-hekto-off-navy-blue font-bold">$26.00</div>
-                    <div className=" line-through text-hekto-pink ">$52.00</div>
+                <div className="lg:w-7/12 w-full px-3 lg:px-4 select-none relative text-transparent group flex flex-col">
+                  <div>
+                    <div className="text-sm font-bold text-hekto-blue">Accusamm Tincident</div>
+                    <div className="text-xs flex space-x-4">
+                      <div className="text-hekto-off-navy-blue font-bold">$26.00</div>
+                      <div className=" line-through text-hekto-pink ">$52.00</div>
+                    </div>
+                    <div className="text-xs text-gray-400 pb-5 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. At vero commodi, voluptatum dignissimos vel, ut autem id ex aliquam eos tempore debitis deleniti veniam blanditiis perferendis temporibus, nihil asperiores exercitationem!</div>
                   </div>
-                  <div className="text-xs text-gray-400 pb-10">Lorem ipsum dolor sit amet consectetur adipisicing elit. At vero commodi, voluptatum dignissimos vel, ut autem id ex aliquam eos tempore debitis deleniti veniam blanditiis perferendis temporibus, nihil asperiores exercitationem!</div>
-                  <div className="absolute left-2 bottom-0 flex space-x-3">
+                  <div className="flex justify-start space-x-3 ">
                     <button className="bg-transparent hover:bg-white flex justify-center items-center rounded-full py-1 px-1 hover:-translate-y-1 transform group-hover:text-black transition duration-300">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.4} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -123,7 +121,6 @@ const Products = () => {
                   </div>
                 </div>
               </div>
-
             </div>
             // Grid View
             :

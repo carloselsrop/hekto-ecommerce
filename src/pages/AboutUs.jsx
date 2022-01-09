@@ -41,7 +41,7 @@ const AboutUs = () => {
             </div>
           </div>
           {/* Our Features Grid */}
-          <div className="mb-36">
+          <div className=" lg:mb-8">
             <div className="text-black font-bold text-center text-3xl pb-8">Our Features</div>
             <div className=" w-full grid grid-flow-row sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 grid-cols-1">
               <div className="flex flex-col items-center p-8 bg-hekto-sky-blue transition duration-300 cursor-pointer hover:shadow-inner rounded-sm hover:border-yellow-500 border-b-2 border-transparent  space-y-4">

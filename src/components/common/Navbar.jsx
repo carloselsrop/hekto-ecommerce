@@ -160,7 +160,7 @@ const Navbar = () => {
       <div className={`transform w-full h-screen flex justify-end bg-black bg-opacity-50 fixed z-50 ${toggleCart ? '-translate-x-0' : 'translate-x-full'}`}>
         {/* Confirmation Modal */}
         <div className={`w-full h-screen fixed bg-black bg-opacity-50 z-50 transform flex justify-center items-center ${isConfirmOrder ? 'scale-100' : 'scale-0'}`}>
-          <div className={`w-4/12 py-3 px-4 bg-white rounded-md transform transition duration-300 ${isConfirmOrder ? 'scale-100' : 'scale-0'}`}>
+          <div className={`w-11/12 sm:w-8/12 md:w-7/12 lg:w-5/12 xl:w-4/12 2xl:w-3/12 py-3 px-4 bg-white rounded-md transform transition duration-300 ${isConfirmOrder ? 'scale-100' : 'scale-0'}`}>
             {/* Title */}
             <div className='flex items-center space-x-2 border-b-2 pb-4'>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-600" viewBox="0 0 20 20" fill="currentColor">
@@ -181,7 +181,8 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <div className={`w-4/12 h-screen relative flex flex-col justify-between bg-white p-4 transform transition duration-500 ${toggleCart ? '-translate-x-0' : 'translate-x-full'}`}>
+        {/* Cart */}
+        <div className={`w-12/12 sm:w-8/12 md:w-7/12 lg:w-6/12 xl:w-5/12 2xl:w-3/12 h-screen relative flex flex-col justify-between bg-white p-4 transform transition duration-500 ${toggleCart ? '-translate-x-0' : 'translate-x-full'}`}>
           <div>
             {/* Close Button */}
             <button className='mb-12 p-1' onClick={toggleCartHandler}>
@@ -218,14 +219,14 @@ const Navbar = () => {
                         <div className='w-3/12 space-y-1.5'>
                           <div>
                             <div className='text-sm font-semibold'>Precio:</div>
-                            <div className='text-xs'>${cart.price}</div>
+                            <div className='text-xs'>${cart.price.toFixed(2)}</div>
                           </div>
                           <div>
                             <div className='text-sm font-semibold'>Cantidad:</div>
                             <div className='text-xs'>{cart.quantity}</div>
                           </div>
                         </div>
-                        <div className='w-3/12 flex justify-end items-center'>
+                        <div className='w-3/12 flex justify-end items-center px-2'>
                           <button onClick={() => { handleDelete(cart.id) }} className='bg-gray-300 rounded-lg p-2 flex items-center space-x-2 select-none'>
                             <div>
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-600" viewBox="0 0 20 20" fill="currentColor">
@@ -245,7 +246,7 @@ const Navbar = () => {
           {/* Total Price and Checkout Button */}
           <div className='fixed bottom-4 left-0 px-4 w-full flex flex-col justify-center'>
             <div className='pb-2 flex justify-end'>
-              Total: ${totalPrice}
+              Total: ${totalPrice.toFixed(2)}
             </div>
             <button onClick={confirmOrderTrue} disabled={cart.length < 1} className={`text-center w-full py-2 rounded-md text-white font-semibold transition duration-300 ${cart.length ? ' bg-hekto-navy-blue text-opacity-100' : ' bg-hekto-off-navy-blue  text-opacity-20 cursor-not-allowed'}`}>
               Completar compra
