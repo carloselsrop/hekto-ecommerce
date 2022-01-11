@@ -1,13 +1,13 @@
 import Navbar from '../components/common/Navbar'
 import TitlePage from '../components/common/TitlePage'
-import { useContext, useState } from 'react';
-import { CartContext } from '../context/cartContext';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 const Checkout = () => {
   // Context and State
   const history = useHistory();
-  const { cart } = useContext(CartContext);
+  const { cart } = useSelector(state => state.cart);
   const [paymentMethod] = useState([
     {
       id: 1,

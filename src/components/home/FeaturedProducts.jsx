@@ -1,11 +1,33 @@
-import { useContext } from 'react';
-import { CartContext } from '../../context/cartContext';
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../store/cart/slice';
+import PreviewModal from '../common/PreviewModal';
 
 const FeaturedProducts = () => {
-  const { featuredProducts, addToCart } = useContext(CartContext);
+  // State, redux
+  const [previewModal, setPreviewModal] = useState(false);
+  const [viewProduct, setViewProduct] = useState({});
+  const dispatch = useDispatch()
+  const { products } = useSelector(state => state.products)
 
+  // Methods
+  const handlePreviewModal = ({ product }) => {
+    if (previewModal) {
+      setPreviewModal(false);
+    } else {
+      setPreviewModal(true)
+      setViewProduct(product)
+    }
+  }
+
+  // Template
   return (
     <div className="w-full flex justify-center font-body select-none">
+      {
+        previewModal
+        &&
+        <PreviewModal previewModal={previewModal} handlePreviewModal={handlePreviewModal} product={viewProduct} />
+      }
       <div className="w-10/12 sm:w-8/12 flex flex-col py-4">
         <div className="flex flex-col mb-16 relative z-40">
           <div className="text-center text-3xl text-hekto-navy-blue font-bold pb-6">
@@ -14,16 +36,16 @@ const FeaturedProducts = () => {
           <div className="mb-4 font-body">
             <div className=" w-full grid grid-flow-row transition duration-300 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 grid-cols-1">
               {/* Product Item */}
-              {featuredProducts.map(product => {
+              {products.map((product, index) => {
                 return (
                   <div key={product.id} className="flex flex-col group items-center justify-center shadow-lg rounded-md">
                     <div className="bg-gray-50 py-4 w-full flex flex-col items-center rounded-t-md group-hover:bg-blue-50 transition duration-300 relative text-transparent">
                       <img className="h-40 my-6" src={product.img} alt="" />
-                      <button className="text-xs group-hover:bg-green-500 transform hover:scale-105 bg-transparent text-transparent transition duration-300 group-hover:text-white px-3 py-2 rounded ">
+                      <button onClick={() => { handlePreviewModal({ product }) }} className="text-xs group-hover:bg-green-500 transform hover:scale-105 bg-transparent text-transparent transition duration-300 group-hover:text-white px-3 py-2 rounded ">
                         View Details
                       </button>
                       <div className="absolute top-3 left-2 flex space-x-2">
-                        <button onClick={() => { addToCart(product) }} className="bg-transparent hover:bg-purple-100 flex justify-center items-center rounded-full p-2 hover:-translate-y-1 transform group-hover:text-hekto-blue transition duration-300">
+                        <button onClick={() => { dispatch(addToCart({ product })) }} className="bg-transparent hover:bg-purple-100 flex justify-center items-center rounded-full p-2 hover:-translate-y-1 transform group-hover:text-hekto-blue transition duration-300">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 hover:text-hekto-navy-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.4} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                           </svg>

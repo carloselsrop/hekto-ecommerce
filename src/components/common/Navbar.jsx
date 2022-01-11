@@ -1,13 +1,15 @@
 // Imports
 import { Link, useLocation, useHistory } from 'react-router-dom';
-import { useContext, useState, useEffect } from 'react';
-import { CartContext } from '../../context/cartContext';
+import { useState, useEffect, useContext } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { handleDelete, getCart } from '../../store/cart/slice';
 import { AuthContext } from '../../context/authContext';
 import emptyCart from '../../static/gif/emptyCart.gif'
 
 const Navbar = () => {
   // Context
-  const { cart, setCart, handleDelete } = useContext(CartContext);
+  const dispatch = useDispatch();
+  const { cart } = useSelector(state => state.cart);
   const { user } = useContext(AuthContext);
   const { logOut } = useContext(AuthContext);
 
@@ -20,12 +22,8 @@ const Navbar = () => {
 
   // UseEffect
   useEffect(() => {
-    const cart = localStorage.getItem('cart');
-    if (cart) {
-      setCart(JSON.parse(cart));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(getCart());
+  }, [dispatch]);
 
   // Data
   const navButtons = [
@@ -202,32 +200,32 @@ const Navbar = () => {
                 </div>
                 :
                 <div className='space-y-4'>
-                  {cart.map(cart => {
+                  {cart.map(product => {
                     return (
-                      <div key={cart.id} className='flex border-b-2 pb-4 w-full items-center justify-between'>
-                        <img className='w-2/12 select-none' src={cart.img} alt="" />
+                      <div key={product.id} className='flex border-b-2 pb-4 w-full items-center justify-between'>
+                        <img className='w-2/12 select-none' src={product.img} alt="" />
                         <div className='w-3/12 space-y-1.5'>
                           <div>
                             <div className='text-sm font-semibold'>Producto:</div>
-                            <div className='text-xs'>{cart.name}</div>
+                            <div className='text-xs'>{product.name}</div>
                           </div>
                           <div>
                             <div className='text-sm font-semibold'>Codigo:</div>
-                            <div className='text-xs'>{cart.code}</div>
+                            <div className='text-xs'>{product.code}</div>
                           </div>
                         </div>
                         <div className='w-3/12 space-y-1.5'>
                           <div>
                             <div className='text-sm font-semibold'>Precio:</div>
-                            <div className='text-xs'>${cart.price.toFixed(2)}</div>
+                            <div className='text-xs'>${product.price ? product.price.toFixed(2) : 0}</div>
                           </div>
                           <div>
                             <div className='text-sm font-semibold'>Cantidad:</div>
-                            <div className='text-xs'>{cart.quantity}</div>
+                            <div className='text-xs'>{product.quantity}</div>
                           </div>
                         </div>
                         <div className='w-3/12 flex justify-end items-center px-2'>
-                          <button onClick={() => { handleDelete(cart.id) }} className='bg-gray-300 rounded-lg p-2 flex items-center space-x-2 select-none'>
+                          <button onClick={() => { dispatch(handleDelete(product.id)) }} className='bg-gray-300 rounded-lg p-2 flex items-center space-x-2 select-none'>
                             <div>
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-600" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />

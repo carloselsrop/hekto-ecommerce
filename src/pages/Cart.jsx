@@ -2,24 +2,19 @@
 import Navbar from '../components/common/Navbar'
 import emptyCart from '../static/gif/emptyCart.gif'
 import TitlePage from '../components/common/TitlePage'
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleDelete, addToCart, minusQuantity } from '../store/cart/slice';
 import { Link } from 'react-router-dom'
-import { CartContext } from '../context/cartContext';
 
 const Cart = () => {
-  // Context and State
-  const { cart, handleDelete, addToCart, minusQuantity } = useContext(CartContext);
+  // Redux
+  const dispatch = useDispatch();
+  const { cart } = useSelector(state => state.cart);
 
-
+  // Methods
   const totalPrice = cart.reduce((acc, item) => {
     return acc + item.price * item.quantity
   }, 0)
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    addToCart(name, value)
-  }
-
 
   // Template
   return (
@@ -44,7 +39,7 @@ const Cart = () => {
                 <div className="w-6/12 flex space-x-2 items-center">
                   <div className="relative">
                     <img className='w-24 rounded border-2' src={item.img} alt="" />
-                    <button onClick={() => { handleDelete(item.id) }} className="absolute -top-1 -right-1 bg-black rounded-full">
+                    <button onClick={() => { dispatch(handleDelete(item.id)) }} className="absolute -top-1 -right-1 bg-black rounded-full">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                       </svg>
@@ -56,15 +51,15 @@ const Cart = () => {
                   </div>
                 </div>
                 <div className="w-2/12 text-sm">
-                  ${item.price.toFixed(2)}
+                  ${item.price ? item.price.toFixed(2) : 0}
                 </div>
                 <div className="w-2/12 text-sm flex justify-start">
                   <div className="w-6/12 flex">
-                    <button disabled={item.quantity === 1} onClick={() => { minusQuantity(item) }} className={`px-1 text-lg bg-hekto-sky-blue text-black ${item.quantity === 1 ? 'bg-opacity-80 cursor-not-allowed text-opacity-10' : ''}`}>
+                    <button disabled={item.quantity === 1} onClick={() => { dispatch(minusQuantity({ product: item })) }} className={`px-1 text-lg bg-hekto-sky-blue text-black ${item.quantity === 1 ? 'bg-opacity-80 cursor-not-allowed text-opacity-10' : ''}`}>
                       -
                     </button>
-                    <input value={item.quantity} onChange={onChange} className="w-full text-center border" />
-                    <button disabled={item.quantity === 5} onClick={() => { addToCart(item) }} className={`px-1 text-lg bg-hekto-sky-blue text-black ${item.quantity === 5 ? 'bg-opacity-80 cursor-not-allowed text-opacity-10' : ''}`}>
+                    <input value={item.quantity} readOnly className="w-full text-center border" />
+                    <button disabled={item.quantity === 5} onClick={() => { dispatch(addToCart({ product: item })) }} className={`px-1 text-lg bg-hekto-sky-blue text-black ${item.quantity === 5 ? 'bg-opacity-80 cursor-not-allowed text-opacity-10' : ''}`}>
                       +
                     </button>
                   </div>
@@ -103,7 +98,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 }
 
